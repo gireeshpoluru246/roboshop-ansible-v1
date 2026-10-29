@@ -48,8 +48,7 @@
       record: "{{ item }}.{{ domain_name }}" # mongodb.expenses123.store
       type: "A"
       ttl: 1
-    loop: "{{ instances }}"  
-    wait: false
+    loop: "{{ instances }}" 
     when: action == "delete"
   
  
