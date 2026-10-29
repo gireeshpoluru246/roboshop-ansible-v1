@@ -41,7 +41,7 @@
     when: action == "create"
 
 
-  - nane: delete route 53 record
+  - name: delete route 53 record
     amazon.aws.route53:
       state: absent
       zone: "{{ domain_name }}"
