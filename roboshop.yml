@@ -1,0 +1,30 @@
+- name: create ec2 instance and route 53 records
+  hosts: local
+  connection: local
+  vars:
+   # ansible-playbook roboshop.yaml -e "instances=['mongodb', 'redis']"
+    # ansible-playbook roboshop.yaml -e "action=delete"
+  - instances: ["mongodb", "redis", "mysql", "rabbitmq"]
+  - instance_shape: "t3.micro"
+  - ami_id: "ami-0055977a6e828a4f4"
+  - aws_region: us-east-1
+  - domain_name: "expenses123.store"
+  - action: create
+  tasks:
+  - name: create ec2 instances
+    amazon.aws.ec2_instance:
+      name: "roboshop-{{ item }}"
+      instance_type: "{{ instance_shape }}"
+      image_id: "{{ ami_id }}"
+      security_groups:
+      - "roboshop-common"
+      - "roboshop-{{ item }}-sg"
+      region: "{{ aws_region }}"
+    loop: "{{ instances }}"
+    when: action == "create"
+    register: ec2_output
+
+  - name: print ec2 instance output
+    debug:
+      msg: "{{ ec2_output }}"
+
