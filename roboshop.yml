@@ -24,7 +24,43 @@
     when: action == "create"
     register: ec2_output
 
-  - name: print ec2 instance output
-    debug:
-      msg: "{{ ec2_output }}"
+  # - name: print ec2 instance output
+  #   debug:
+  #     msg: "{{ ec2_output }}"
+  
+  - name: create route53 record
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}" # mongodb.expenses123.store
+      type: "A"
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true # overrite the existing record
+    loop: "{{ ec2_output.results }}"  
+    when: action == "create"
+
+
+  - nane: delete route 53 record
+    amazon.aws.route53:
+      state: absent
+      zone: "{{ domain_name }}"
+      record: "{{ item }}.{{ domain_name }}" # mongodb.expenses123.store
+      type: "A"
+      ttl: 1
+    loop: "{{ instances }}"  
+    wait: false
+    when: action == "delete"
+  
+ 
+  - name: delete ec2 instances
+    amazon.aws.ec2_instance:
+      state: absent
+      name: "roboshop-{{ item }}"
+      region: us-east-1
+      wait: false # don't wait till deletion the instance
+    loop: "{{ instances }}"
+    when: action == "delete"   
+ 
+  
 
