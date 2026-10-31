@@ -8,7 +8,7 @@
   - name: install mysql server 8.4
     package:
       name: mysql-server
-      state: prsent
+      state: present
 
   - name: enable and start mysql server
     service:
