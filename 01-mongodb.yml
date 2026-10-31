@@ -1,5 +1,6 @@
 - name: configure the mongodb server
   hosts: mongodb
+  become: yes
   tasks:
   - name: print variables from group_vars
     debug:
