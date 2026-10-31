@@ -1,0 +1,7 @@
+- name: configure the mongodb server
+  hosts: mongodb
+  tasks:
+  - name: print variables from group_vars
+    debug:
+      msg: "{{ app_name }}"
+  
