@@ -4,4 +4,13 @@
   - name: print variables from group_vars
     debug:
       msg: "{{ app_name }}"
+
+  - name: copy the mongodb repo
+    copy:
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
   
+  - name: install mongodb server
+    package:
+      name: mongodb-org
+      state: present
