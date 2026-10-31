@@ -2,9 +2,9 @@
   hosts: mongodb
   become: yes
   tasks:
-  - name: print variables from group_vars
-    debug:
-      msg: "{{ app_name }}"
+  # - name: print variables from group_vars
+  #   debug:
+  #     msg: "{{ app_name }}"
 
   - name: copy the mongodb repo
     copy:
