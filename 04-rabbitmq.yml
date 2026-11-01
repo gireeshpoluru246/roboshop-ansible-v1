@@ -28,8 +28,8 @@
   # community module means some third parties companies build module and published it.
   - name: create rabbitmq user
     community.rabbitmq.rabbitmq_user:
-      user: {{ rabbitmq_user }}
-      password: {{ rabbitmq_password }}
+      user: "{{ rabbitmq_user }}"
+      password: "{{ rabbitmq_password }}"
       vhost: /
       configure_priv: .*
       read_priv: .*
