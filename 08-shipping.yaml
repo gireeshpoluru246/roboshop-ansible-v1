@@ -1,4 +1,4 @@
-- name: configure shipping server
+- name: configure shipping service
   hosts: shipping
   become: yes
   tasks:

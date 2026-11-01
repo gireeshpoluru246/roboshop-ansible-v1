@@ -1,4 +1,4 @@
-- name: configure user server
+- name: configure user service
   hosts: user
   become: yes
   tasks:

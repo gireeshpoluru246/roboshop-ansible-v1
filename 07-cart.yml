@@ -1,4 +1,4 @@
-- name: configure cart server
+- name: configure cart service
   hosts: cart
   become: yes
   tasks:
