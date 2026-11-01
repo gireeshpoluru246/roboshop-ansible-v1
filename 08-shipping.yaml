@@ -24,7 +24,7 @@
   - name: make java25 as default
     command: alternatives --set java {{ java25.stdout }}
 
-  - name: set JAVA_HOME
+  - name: set JAVA_HOME permenant
     copy:
       content: "export JAVA_HOME={{ java25.stdout | dirname | dirname  }}"
       dest: /etc/profile.d/java.sh
@@ -78,5 +78,3 @@
     command: mvn clean package
     args:
      chdir: /app
-    # environment:
-    #   JAVA_HOME: "{{ java25.stdout | dirname | dirname  }}"
