@@ -1,0 +1,37 @@
+- name: configure the rabbitmq server
+  hosts: rabbitmq
+  become: yes
+  tasks:
+  - name: copy the rabbitmq repo
+    copy:
+      src: rabbitmq.repo 
+      dest: /etc/yum.repos.d/rabbitmq.repo
+  
+  # Here for installing use package or direct distribution command
+  # When you don't know the what distribution using then use package
+  # we know distribution then use distribution respective command
+  # when use the dnf here ansible will not check the what distribution is using.
+  - name: install rabbitmq server
+    dnf:
+      name:
+      - erlang
+      - rabbitmq-server
+    state: present
+
+  - name: enable and start rabbitmq server
+    service:
+      name: rabbitmq-server
+      state: started
+      enabled: yes
+  
+  # here rabbitmq user is from community module not ansible bulit in module
+  # community module means some third parties companies build module and published it.
+  - name: create rabbitmq user
+    community.rabbitmq.rabbitmq_user:
+      user: {{ rabbitmq_user }}
+      password: {{ rabbitmq_password }}
+      vhost: /
+      configure_priv: .*
+      read_priv: .*
+      write_priv: .*
+      state: present
