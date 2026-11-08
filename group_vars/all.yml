@@ -7,6 +7,7 @@ user_host: user.daws92s.store
 cart_host: cart.daws92s.store
 shipping_host: shipping.daws92s.store
 payment_host: payment.daws92s.store
+mysql_host: mysql.expenses123.store
 mysql_root_password: RoboShop@1
 shipping_db_user: shipping
 shipping_db_password: RoboShop@1
