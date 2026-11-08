@@ -47,8 +47,8 @@
 
   - name: Delete a service file
     ansible.builtin.file:
-    path: /etc/nginx/default.d/roboshop.conf
-    state: absent
+     path: /etc/nginx/default.d/roboshop.conf
+     state: absent
 
   - name: copy roboshop config
     template:
