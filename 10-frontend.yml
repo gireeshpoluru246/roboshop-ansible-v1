@@ -45,6 +45,11 @@
       dest: /usr/share/nginx/html/
       remote_src: yes
 
+  - name: Delete a service file
+    ansible.builtin.file:
+    path: /etc/nginx/default.d/roboshop.conf
+    state: absent
+
   - name: copy roboshop config
     template:
       src: roboshop.conf.j2
